@@ -1,4 +1,5 @@
 let a = 80;
+const NUM_FACTORIES = 5;
 const colors = {
   Red: "Red",
   Blue: "Blue",
@@ -8,7 +9,7 @@ const colors = {
   First: "First"
 }
 let bag = [];
-let 
+let factories = [];
 
 // let config = {
 // 	model: [
@@ -26,6 +27,7 @@ function setup() {
   background(80);
   stroke(255);
   noLoop();
+  setupGame();
 }
 
 function draw() {
@@ -40,8 +42,18 @@ function setupGame() {
     }
     bag = shuffleArray(bag);
   
+    factories = new Array(NUM_FACTORIES);
+
+
     p = new Player();
     p.printWall();
+    p.setLine(1,1);
+}
+
+function startRound() {
+  for (let i = 0; i < NUM_FACTORIES; i++) {
+    factories[i] = bag.splice(0, 4);
+  }
 }
 
 function shuffleArray(arr) {

@@ -1,7 +1,10 @@
 class Player {
     constructor() {
         this.score = 0;
-        this.wall = initWall();
+
+        //5x5 arrays for buffer rows and wall
+        this.wall = [[], [], [], [], []];
+        this.lines = [[], [], [], [], []];
     }
 
     setWall(x, y, tile) {
@@ -13,20 +16,16 @@ class Player {
             console.log(this.wall[i]);
         }
     }
-}
 
-/*Make array that looks like:
-    x
-    x x
-    x x x
-    x x x x
-    x x x x x
-*/
-function initWall() {
-    let arr = new Array(5);
-    for (let i = 0; i < 5; i++) {
-        arr[i] = new Array(i + 1);
+    setLine(row, tiles) {
+        console.log(this.lines[1].length);
+        this.lines[1][1] = (new Tile(colors.Black));
+        console.log(this.lines[1][0]);
     }
 
-    return arr;
+    printLines() {
+        for (let i = 0; i < 5; i++) {
+            console.log(this.lines[i]);
+        }
+    }
 }
