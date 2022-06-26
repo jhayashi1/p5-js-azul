@@ -5,6 +5,7 @@ class Player {
         //5x5 arrays for buffer rows and wall
         this.wall = [[], [], [], [], []];
         this.lines = [[], [], [], [], []];
+        this.floorLine = [];
     }
 
     setWall(x, y, tile) {
@@ -13,19 +14,47 @@ class Player {
 
     printWall() {
         for (let i = 0; i < 5; i++) {
+            console.log("Player wall " + i + ": " + this.wall[i]);
             console.log(this.wall[i]);
         }
     }
 
-    setLine(row, tiles) {
-        console.log(this.lines[1].length);
-        this.lines[1][1] = (new Tile(colors.Black));
-        console.log(this.lines[1][0]);
+    addToLine(row, tiles) {
+        let i = tiles.length;
+        //While there are still elements in the tiles to add
+        while (i--) {
+            //If the row is full, add the rest of the tiles to the floor line
+            if (this.lines[row].length == row + 1) {
+                this.addToFloorLine(tiles);
+                break;
+            }
+
+            //Add one tile to the line
+            this.lines[row].push(tiles.splice(i, 1));
+        }
     }
 
     printLines() {
         for (let i = 0; i < 5; i++) {
+            console.log("Player line " + i + ": ");
             console.log(this.lines[i]);
+        }
+    }
+
+    addToFloorLine(tiles) {
+        let i = tiles.length
+
+        //While there are still tiles to add
+        while (i--) {
+            //If the floor line is maxed out
+            if (this.floorLine.length == 7) {
+                //Add excess tiles to the trash
+                addTilesToTrash(tiles);
+                break;
+            }
+
+            //Add one tile to the floor line
+            this.floorLine.push(tiles.splice(i, 1));
         }
     }
 }

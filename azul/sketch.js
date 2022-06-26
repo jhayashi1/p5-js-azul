@@ -10,6 +10,7 @@ const colors = {
 }
 let bag = [];
 let factories = [];
+let trash = [];
 
 // let config = {
 // 	model: [
@@ -44,16 +45,34 @@ function setupGame() {
   
     factories = new Array(NUM_FACTORIES);
 
-
     p = new Player();
     p.printWall();
-    p.setLine(1,1);
+    startRound();
+    takeFromFactory(p, colors.Red, factories[0], 4);
 }
 
 function startRound() {
   for (let i = 0; i < NUM_FACTORIES; i++) {
     factories[i] = bag.splice(0, 4);
+    console.log("Factory " + i + ": ");
+    console.log(factories[i]);
   }
+}
+
+function takeFromFactory(player, color, factory, row) {
+  let i = factory.length;
+  let toAdd = [];
+
+  //Loop through factory backwards and splice any tiles that match the color
+  while (i--) {
+    //If the color matches, splice it
+    if (factory[i].getColor() == color) {
+      toAdd.push(factory.splice(i, 1));
+    }
+  }
+  
+  //Add the tiles to the player's line
+  player.addToLine(row, toAdd);
 }
 
 function shuffleArray(arr) {
@@ -70,4 +89,9 @@ function shuffleArray(arr) {
   }
 
   return arr;
+}
+
+function addTilesToTrash(tiles) {
+  //Add all tiles in the array to the trash
+  trash.push(tiles.splice(0, tiles.length));
 }
