@@ -1,3 +1,6 @@
+//RULES https://tesera.ru/images/items/1108676/EN-Azul-Rules.pdf
+//TODO: functionality for moving from lines to wall
+//TODO: scorekeeping at the end of the round
 let a = 80;
 const NUM_FACTORIES = 5;
 const colors = {
