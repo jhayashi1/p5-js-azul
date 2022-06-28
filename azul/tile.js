@@ -3,7 +3,7 @@ class Tile {
         this.color = c;
     }
 
-    getColor() {
+    get color() {
         return this.color;
     }
 }

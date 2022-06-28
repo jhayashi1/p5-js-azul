@@ -57,4 +57,16 @@ class Player {
             this.floorLine.push(tiles.splice(i, 1));
         }
     }
+
+    moveLinesToWall() {
+        for (let i = 0; i < this.lines.length; i++) {
+            //If the line is full
+            if (this.lines[i].length == i + 1) {
+                //TODO: Move to wall
+
+                //Move the rest to the trash
+                trash.push(this.lines[i].splice(0, i));
+            }
+        }
+    }
 }

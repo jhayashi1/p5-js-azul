@@ -2,14 +2,16 @@
 //TODO: functionality for moving from lines to wall
 //TODO: scorekeeping at the end of the round
 let a = 80;
-const NUM_FACTORIES = 5;
+const SCREEN_WIDTH = 1600;
+const SCREEN_HEIGHT = 1600;
+const NUM_FACTORIES = 9;
 const colors = {
-  Red: "Red",
-  Blue: "Blue",
-  Yellow: "Yellow",
-  Black: "Black",
-  White: "White",
-  First: "First"
+  Red: 1,
+  Blue: 2,
+  Yellow: 3,
+  Black: 4,
+  White: 5,
+  First: 6
 }
 let bag = [];
 let factories = [];
@@ -27,7 +29,7 @@ let trash = [];
 // };
 
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(SCREEN_WIDTH, SCREEN_HEIGHT);
   background(80);
   stroke(255);
   noLoop();
@@ -69,7 +71,7 @@ function takeFromFactory(player, color, factory, row) {
   //Loop through factory backwards and splice any tiles that match the color
   while (i--) {
     //If the color matches, splice it
-    if (factory[i].getColor() == color) {
+    if (factory[i].color == color) {
       toAdd.push(factory.splice(i, 1));
     }
   }
