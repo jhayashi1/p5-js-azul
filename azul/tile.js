@@ -1,9 +1,9 @@
 class Tile {
     constructor(c) {
-        this.color = c;
+        this._tileColor = c;
     }
-
-    get color() {
-        return this.color;
+  
+    get tileColor() {
+      return this._tileColor;
     }
 }

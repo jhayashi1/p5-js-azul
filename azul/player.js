@@ -3,9 +3,21 @@ class Player {
         this.score = 0;
 
         //5x5 arrays for buffer rows and wall
-        this.wall = [[], [], [], [], []];
-        this.lines = [[], [], [], [], []];
-        this.floorLine = [];
+        this._wall = [[], [], [], [], []];
+        this._lines = [[], [], [], [], []];
+        this._floorLine = [];
+    }
+
+    get wall() {
+        return this._wall;
+    }
+
+    get lines() {
+        return this._lines;
+    }
+
+    get floorLine() {
+        return this._floorLine;
     }
 
     setWall(x, y, tile) {
@@ -30,7 +42,7 @@ class Player {
             }
 
             //Add one tile to the line
-            this.lines[row].push(tiles.splice(i, 1));
+            this.lines[row].push(tiles.pop());
         }
     }
 
@@ -54,7 +66,7 @@ class Player {
             }
 
             //Add one tile to the floor line
-            this.floorLine.push(tiles.splice(i, 1));
+            this.floorLine.push(tiles.splice(i, 1).pop());
         }
     }
 
@@ -62,10 +74,19 @@ class Player {
         for (let i = 0; i < this.lines.length; i++) {
             //If the line is full
             if (this.lines[i].length == i + 1) {
-                //TODO: Move to wall
-
+                //offset is the column to put the tile in
+                let offset = this.lines[i][i].tileColor + i;
+                if (offset > WALL_DIMENSIONS - 1) {
+                  offset -= WALL_DIMENSIONS;
+                }
+              
+                //Remove one tile from the array and place it on the wall
+                this.wall[offset][i] = this.lines[i].pop();
+              
                 //Move the rest to the trash
-                trash.push(this.lines[i].splice(0, i));
+                for (let j = 0; j < this.lines[i].length; j++) {
+                    trash.push(this.lines[i].pop());
+                }
             }
         }
     }
